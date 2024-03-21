@@ -22,8 +22,8 @@ module "Network" {
   availability_zoneA = var.availability_zoneA
   availability_zoneB = var.availability_zoneB
   
-  privatesubnet1name = var.Privatesubnet1_cidr
-  privatesubnet2name = var.Privatesubnet2_cidr
+  privatesubnet1name = var. privatesubnet1name
+  privatesubnet2name = var.privatesubnet2name
   
   publicsubnet1name = var.publicsubnet1name
   publicsubnet2name = var.publicsubnet2name
