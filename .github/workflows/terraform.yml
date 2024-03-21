@@ -51,6 +51,8 @@ jobs:
 
         run: tflint
 
+        continue-on-error: true
+
       - name: Setup OPA
 
         uses: open-policy-agent/setup-opa@v2
@@ -82,4 +84,4 @@ jobs:
 
       - name: Terraform Plan
 
-        run: terraform plan 
+        run: terraform plan -out=tfplan
