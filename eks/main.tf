@@ -94,7 +94,7 @@ resource "aws_iam_role" "workernodes" {
   node_group_name = var.nodegroup_name
   node_role_arn  = aws_iam_role.workernodes.arn
   subnet_ids   = var.cluster_subnetid
-  instance_types = var.workernode_type
+  instance_type = var.workernode_type
  
   scaling_config {
    desired_size = var.desirednode_size
