@@ -28,8 +28,8 @@ module "Network" {
   publicsubnet1name = var.publicsubnet1name
   publicsubnet2name = var.publicsubnet2name
   
- Privatesubnet1_cidr = var.privatesubnet1name
- Privatesubnet2_cidr = var.privatesubnet2name
+ Privatesubnet1_cidr = var.Privatesubnet1name
+ Privatesubnet2_cidr = var.Privatesubnet2name
  
  publicsubnet1_cidr = var.publicsubnet1_cidr
  publicsubnet2_cidr = var.publicsubnet2_cidr
