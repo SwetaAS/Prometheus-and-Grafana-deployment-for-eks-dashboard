@@ -45,7 +45,7 @@ module "Network" {
  keyname = var.keyname
  ami = var.ami
   volume_size =var.volume_size
-  instance_type = var.volume_size
+  instance_type = var.instance_type
   instance_name = var.instance_name
   security_group_name = var.security_group_name
   MyIP = var.MyIP
