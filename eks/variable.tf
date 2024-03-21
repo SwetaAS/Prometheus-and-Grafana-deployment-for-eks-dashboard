@@ -13,6 +13,7 @@ variable cluster_rolename {
     type = string
   }
   variable workernode_type{
+    type = string
   }
 
   variable desirednode_size{
