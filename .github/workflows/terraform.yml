@@ -1,87 +1,48 @@
-
 name: Terraform Plan
-
 on:
-
   workflow_dispatch:
-
 permissions: read-all      
-
 jobs:
-
   plan:
-
     runs-on: ubuntu-latest
-
     env:
-
-         AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
-
-         AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
-
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          AWS_DEFAULT_REGION: us-east-1
-
     steps:
-
       - uses: actions/checkout@v3
-
       - name: Setup Terraform
-
         uses: hashicorp/setup-terraform@v2
 
-      - name: Install curl
-
-        run: sudo apt-get install curl -y
-
-      - name: Install Checkov
-
-        run:  pip install checkov
  
-      - name: Install Tflint
-
-        run:  curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
- 
-      - name: Install Tfsec
-
-        run:  curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+      - uses: terraform-linters/setup-tflint@v4
+        name: Setup TFLint
+        with:
+         tflint_version: v0.50.3
  
   
-
       - name: Running Tflint
-
-        run: tflint
-
+        run: tflint -f compact
         continue-on-error: true
-
       - name: Setup OPA
-
         uses: open-policy-agent/setup-opa@v2
-
         with:
-
          version: latest
  
       - name: Run OPA Tests
-
-        run: opa test tests/.rego || true
-
-      - name: Running Tfsec
-
-        run:  tfsec --soft-fail=true
-
-      - name: Running checkov
-
-        run: checkov -d .
-
-        continue-on-error: true
+        run: opa test . || true
  
-      
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          soft_fail: true
+      - name: Checkov GitHub Action
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          soft_fail: true 
 
 
       - name: Terraform Init
-
         run: terraform init
-
       - name: Terraform Plan
-
         run: terraform plan -out=tfplan
