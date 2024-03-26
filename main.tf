@@ -1,7 +1,7 @@
 
 
 module "vpc" {
-    source = "./modules/vpc"
+    source = "./vpc"
     vpc_cidr =var.vpc_cidr
     public_subnet_cidr =var.public_subnet_cidr
     private_subnet_cidr = var.private_subnet_cidr
@@ -9,7 +9,7 @@ module "vpc" {
   
 }
 module "eks" {
-    source = "./modules/eks"
+    source = "./eks"
     cluster_role_name = var.cluster_role_name
     cluster_name = var.cluster_name
     cluster_subnets = module.vpc.output_cluster_privatesubnet
@@ -21,7 +21,7 @@ module "eks" {
     min_node = var.min_node
 }
 module "ec2" {
-    source = "./modules/ec2"
+    source = "./ec2"
     ami_ids =var.ami_ids
     instance_types = var.instance_types
     subnet_ids = module.vpc.output_instancesubnet
@@ -29,12 +29,12 @@ module "ec2" {
   
 }
 module "route53" {
-    source = "./modules/route53"
+    source = "./route53"
     domain_name =var.domain_name
   
 }
 module "security_group" {
-    source = "./modules/securitygroup"
+    source = "./securitygroup"
     ref_vpcid =module.vpc.output_vpc_id
     securitygroup_name = "Ec2-security-group"
  
