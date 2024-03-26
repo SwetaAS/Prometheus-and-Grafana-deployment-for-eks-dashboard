@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
          AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
-         AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY}}
          AWS_DEFAULT_REGION: us-east-1
     steps:
       - uses: actions/checkout@v3
