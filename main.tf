@@ -1,7 +1,7 @@
 
 
 module "vpc" {
-    source = "./modules/vpc"
+    source = "./vpc"
     vpc_cidr =var.vpc_cidr
     public_subnet_cidr =var.public_subnet_cidr
     private_subnet_cidr = var.private_subnet_cidr
@@ -9,7 +9,7 @@ module "vpc" {
   
 }
 module "eks" {
-    source = "./modules/eks"
+    source = "./eks"
 
     cluster_role_name = var.cluster_role_name
     cluster_name = var.cluster_name
@@ -26,7 +26,7 @@ module "eks" {
     
 }
 module "ec2" {
-    source = "./modules/ec2"
+    source = "./ec2"
     ami_ids =var.ami_ids
     instance_types = var.instance_types
     subnet_ids = module.vpc.output_instancesubnet
@@ -35,7 +35,7 @@ module "ec2" {
 }
 
 module "security_group" {
-    source = "./modules/securitygroup"
+    source = "./securitygroup"
     ref_vpcid =module.vpc.output_vpc_id
     securitygroup_name = "Ec2-security-group"
  
@@ -83,7 +83,7 @@ securitygroup_rules = {
 
 
 module "ekssecurity_group" {
-  source = "./modules/securitygroup"
+  source = "./securitygroup"
     ref_vpcid =module.vpc.output_vpc_id
     securitygroup_name = "Ec2-security-group"
  
